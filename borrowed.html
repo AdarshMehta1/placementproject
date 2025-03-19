@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrowed Books</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="navbar">
+        <h1>📚 Borrowed Books</h1>
+        <button onclick="window.location.href='index.html'">← Back to Library</button>
+    </div>
+
+    <div class="container">
+        <div id="notification-container"></div>
+        <div id="borrowedBooks" class="borrowed-list"></div>
+    </div>
+
+    <footer>© 2025 E-Library Management System</footer>
+    
+    <script src="script.js"></script>
+    <script>
+        // Display borrowed books on this page
+        displayBorrowedBooksPage();
+    </script>
+</body>
+</html>

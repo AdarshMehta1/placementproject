@@ -1,0 +1,205 @@
+/* Brown color palette */
+:root {
+    --bg-color: #f5f1e3;
+    --primary: #8b4513;      /* Saddle brown */
+    --secondary: #a0522d;    /* Sienna */
+    --accent: #cd853f;       /* Peru */
+    --light-brown: #deb887;  /* Burlywood */
+    --white: #fff;
+}
+
+/* General Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--primary);
+    line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+    background: var(--primary);
+    color: var(--white);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.navbar button {
+    font-size: x-large;
+}
+/* Notification Container */
+#notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Notification Styles */
+.notification {
+    padding: 15px 20px;
+    color: var(--white);
+    font-size: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    animation: fade-in 0.5s;
+    opacity: 1;
+}
+
+/* Different colors for different alert types */
+.success { background: #28a745; }   /* Green */
+.warning { background: #ffc107; }   /* Yellow */
+.error { background: #dc3545; }     /* Red */
+
+/* Fade-in animation */
+@keyframes fade-in {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Container */
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 40px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+}
+
+/* Book Card Styling */
+.book-list, .borrowed-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+/* Book and Borrowed Book Styling */
+.book, .borrowed-book {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    padding: 20px;
+    width: calc(33.333% - 20px);
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+/* Book Hover Effect */
+.book:hover, .borrowed-book:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+/* Book Title and Info */
+.book h3, .borrowed-book h3 {
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+}
+
+/* Book Cover Image */
+.book-cover {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* Book Info Section */
+.book-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.book-info p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Horizontal Buttons */
+.book button, .borrowed-book button {
+    display: inline-block;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    margin: 10px 5px;
+}
+
+/* Button Hover and Click Effects */
+.book button:hover, .borrowed-book button:hover {
+    background: var(--accent);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+
+.book button:active, .borrowed-book button:active {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transform: translateY(4px);
+}
+
+/* Search Section */
+.search-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+input {
+    width: 70%;
+    padding: 12px;
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: var(--secondary);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+button {
+    padding: 12px 20px;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: var(--secondary);
+}
+
+/* Footer */
+footer {
+    background: var(--primary);
+    color: var(--white);
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
+}

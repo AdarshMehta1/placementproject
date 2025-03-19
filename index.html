@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Library Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="navbar">
+        <h1>📚 E-Library Management</h1>
+        <!-- Navigation Button -->
+        <button onclick="window.location.href='borrowed.html'">📖 View Borrowed Books</button>
+    </div>
+</header>
+
+<!-- Notification Component -->
+<div id="notification-container"></div>
+
+<div class="container">
+    <!-- Search Section -->
+    <div class="search-section">
+        <input type="text" id="searchInput" placeholder="🔍 Search by title, author, or category" onkeyup="searchBooks()">
+        <button onclick="searchBooks()">Search</button>
+    </div>
+
+    <!-- Book List -->
+    <h2>📚 Available Books</h2>
+    <div id="bookList" class="book-list"></div>
+</div>
+
+<footer>
+    <p>© 2025 E-Library | Made with ❤️ by Adarsh</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
