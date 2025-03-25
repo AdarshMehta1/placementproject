@@ -28,11 +28,12 @@ body {
     color: var(--white);
     padding: 20px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(63, 4, 4, 0.1);
 }
 
 .navbar button {
     font-size: x-large;
+    background-color:#bf989899;
 }
 
 /* Notification Container */
@@ -93,7 +94,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 6px 12px rgba(0,0,0,0.1);
     padding: 20px;
-    width: calc(33.333% - 20px);
+    width: calc(33.333% - 20px);  /* 3 cards per row on large screens */
     transition: transform 0.3s;
     display: flex;
     flex-direction: column;
@@ -233,4 +234,41 @@ footer {
 
 .alert.upcoming {
     background: #28a745; /* Green */
+}
+
+/* ✅ Responsive Styles */
+@media screen and (max-width: 1024px) {
+    .book, .borrowed-book {
+        width: calc(50% - 20px);  /* 2 cards per row on tablets */
+    }
+
+    .navbar h1 {
+        font-size: 1.8rem;
+    }
+
+    .navbar button {
+        font-size: large;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .book, .borrowed-book {
+        width: 100%;  /* 1 card per row on small screens */
+    }
+
+    .navbar h1 {
+        font-size: 1.5rem;
+    }
+
+    .navbar button {
+        font-size: medium;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    input {
+        width: 100%;
+    }
 }

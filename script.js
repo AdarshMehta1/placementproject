@@ -10,7 +10,7 @@ function showNotification(message, type = 'success') {
 
     // Remove notification after 5 seconds
     setTimeout(() => {
-        notification.style.opacity = '0';
+        notification.style.opacity = '1';
         setTimeout(() => {
             container.removeChild(notification);
         }, 500);
@@ -41,7 +41,7 @@ if (!localStorage.getItem('borrowedBooks')) {
 // Display Available Books
 function displayBooks(bookArray = null) {
     const bookList = document.getElementById('bookList');
-    if (!bookList) return;
+   
 
     bookList.innerHTML = '';
 
@@ -90,7 +90,7 @@ function searchBooks() {
 // Display Borrowed Books with Image URLs
 function displayBorrowedBooksPage() {
     const borrowedBooksDiv = document.getElementById('borrowedBooks');
-    if (!borrowedBooksDiv) return;
+
 
     borrowedBooksDiv.innerHTML = '';
     const borrowedBooks = JSON.parse(localStorage.getItem('borrowedBooks')) || [];
