@@ -19,20 +19,15 @@ function showNotification(message, type = 'success') {
 
 // Initial Book Data with Image URLs
 const books = [
-    // Fiction
-    { id: 1, title: "The Alchemist", author: "Paulo Coelho", category: "Fiction", cover: "https://m.media-amazon.com/images/I/71aFt4+OTOL.jpg", dueDate: null },
-    { id: 2, title: "To Kill a Mockingbird", author: "Harper Lee", category: "Fiction", cover: "https://m.media-amazon.com/images/I/81gepf1eMqL.jpg", dueDate: null },
-    { id: 3, title: "The Great Gatsby", author: "F. Scott Fitzgerald", category: "Fiction", cover: "https://m.media-amazon.com/images/I/81TLiZrasVL._UF1000,1000_QL80_.jpg", dueDate: null },
-    
-    // History
-    { id: 4, title: "Sapiens", author: "Yuval Noah Harari", category: "History", cover: "https://m.media-amazon.com/images/I/713jIoMO3UL.jpg", dueDate: null },
-    { id: 5, title: "Guns, Germs, and Steel", author: "Jared Diamond", category: "History", cover: "https://m.media-amazon.com/images/I/61V8g4GgqdL._AC_UF1000,1000_QL80_.jpg", dueDate: null },
-    { id: 6, title: "The Silk Roads", author: "Peter Frankopan", category: "History", cover: "https://m.media-amazon.com/images/I/A15++jTYXJL.jpg", dueDate: null },
-   
-    // Self-Help
-    { id: 11, title: "Atomic Habits", author: "James Clear", category: "Self-Help", cover: "https://m.media-amazon.com/images/I/91bYsX41DVL.jpg", dueDate: null },
-    { id: 13, title: "The Subtle Art of Not Giving a F*ck", author: "Mark Manson", category: "Self-Help", cover: "https://m.media-amazon.com/images/I/71QKQ9mwV7L.jpg", dueDate: null },
-    { id: 15, title: "Think and Grow Rich", author: "Napoleon Hill", category: "Self-Help", cover: "https://m.media-amazon.com/images/I/71UypkUjStL.jpg", dueDate: null }
+    { id: 1, title: "The Alchemist", author: "Paulo Coelho", category: "Fiction", cover: "https://m.media-amazon.com/images/I/71aFt4+OTOL.jpg" },
+    { id: 2, title: "To Kill a Mockingbird", author: "Harper Lee", category: "Fiction", cover: "https://m.media-amazon.com/images/I/81gepf1eMqL.jpg" },
+    { id: 3, title: "The Great Gatsby", author: "F. Scott Fitzgerald", category: "Fiction", cover: "https://m.media-amazon.com/images/I/81TLiZrasVL._UF1000,1000_QL80_.jpg" },
+    { id: 4, title: "Sapiens", author: "Yuval Noah Harari", category: "History", cover: "https://m.media-amazon.com/images/I/713jIoMO3UL.jpg" },
+    { id: 5, title: "Guns, Germs, and Steel", author: "Jared Diamond", category: "History", cover: "https://m.media-amazon.com/images/I/61V8g4GgqdL._AC_UF1000,1000_QL80_.jpg" },
+    { id: 6, title: "The Silk Roads", author: "Peter Frankopan", category: "History", cover: "https://m.media-amazon.com/images/I/A15++jTYXJL.jpg" },
+    { id: 11, title: "Atomic Habits", author: "James Clear", category: "Self-Help", cover: "https://m.media-amazon.com/images/I/91bYsX41DVL.jpg" },
+    { id: 13, title: "The Subtle Art of Not Giving a F*ck", author: "Mark Manson", category: "Self-Help", cover: "https://m.media-amazon.com/images/I/71QKQ9mwV7L.jpg" },
+    { id: 15, title: "Think and Grow Rich", author: "Napoleon Hill", category: "Self-Help", cover: "https://m.media-amazon.com/images/I/71UypkUjStL.jpg" }
 ];
 
 // Initialize localStorage with books if empty
@@ -43,7 +38,7 @@ if (!localStorage.getItem('borrowedBooks')) {
     localStorage.setItem('borrowedBooks', JSON.stringify([]));
 }
 
-// Display Available Books with Cover Image URLs
+// Display Available Books
 function displayBooks(bookArray = null) {
     const bookList = document.getElementById('bookList');
     if (!bookList) return;
@@ -109,23 +104,29 @@ function displayBorrowedBooksPage() {
         const bookDiv = document.createElement('div');
         bookDiv.classList.add('borrowed-book');
 
+        const dueDate = new Date(book.dueDate);
+        const formattedDate = formatDate(dueDate);
+
         bookDiv.innerHTML = `
             <img src="${book.cover}" alt="${book.title} cover" class="book-cover">
             <h3>${book.title}</h3>
             <p>Author: ${book.author}</p>
             <p>Category: ${book.category}</p>
+            <p>Due Date: ${formattedDate}</p>
             <button class="return-btn" onclick="returnBook(${index})">Return</button>
         `;
         borrowedBooksDiv.appendChild(bookDiv);
     });
+
+    checkDueDates();
 }
 
-// Borrow a Book
+// Borrow a Book with Due Date and Limit
 function borrowBook(id) {
     const borrowedBooks = JSON.parse(localStorage.getItem('borrowedBooks')) || [];
 
     if (borrowedBooks.length >= 3) {
-        showNotification('Borrowing limit reached!', 'warning');
+        showNotification('You can only borrow up to 3 books!', 'warning');
         return;
     }
 
@@ -133,12 +134,18 @@ function borrowBook(id) {
     const book = books.find(book => book.id === id);
 
     if (book) {
+        const dueDate = new Date();
+        dueDate.setDate(dueDate.getDate() + 14);  // 14-day due date
+        book.dueDate = dueDate.toISOString();  // Store in ISO format
+
         borrowedBooks.push(book);
         localStorage.setItem('borrowedBooks', JSON.stringify(borrowedBooks));
-        showNotification(`${book.title} borrowed successfully!`, 'success');
+
+        showNotification(`${book.title} borrowed successfully! Due on ${formatDate(dueDate)}`, 'success');
     }
 
     displayBooks();
+    displayBorrowedBooksPage();
 }
 
 // Return Book
@@ -151,6 +158,33 @@ function returnBook(index) {
         showNotification('Book returned successfully!', 'success');
         displayBorrowedBooksPage();
     }
+}
+
+// Check for due date alerts
+function checkDueDates() {
+    const today = new Date();
+    const borrowedBooks = JSON.parse(localStorage.getItem('borrowedBooks')) || [];
+
+    borrowedBooks.forEach(book => {
+        const dueDate = new Date(book.dueDate);
+        const timeDiff = dueDate - today;
+        const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+        if (daysLeft === 3) {
+            showNotification(`Reminder: "${book.title}" is due in 3 days!`, 'warning');
+        } else if (daysLeft < 0) {
+            showNotification(`Overdue: "${book.title}" was due on ${formatDate(book.dueDate)}`, 'error');
+        }
+    });
+}
+
+// Format Date for display
+function formatDate(date) {
+    return new Date(date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
 }
 
 // Initialization

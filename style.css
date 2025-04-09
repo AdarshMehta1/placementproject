@@ -34,6 +34,7 @@ body {
 .navbar button {
     font-size: x-large;
 }
+
 /* Notification Container */
 #notification-container {
     position: fixed;
@@ -202,4 +203,34 @@ footer {
     padding: 20px;
     margin-top: 40px;
     box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
+}
+
+/* 🔥 New: Alert Section for Due Dates */
+.alert-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.alert {
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: var(--white);
+    font-size: 14px;
+    transition: 0.3s;
+    animation: fade-in 0.5s;
+}
+
+/* Alert Colors */
+.alert.warning {
+    background: #ffc107; /* Yellow */
+}
+
+.alert.overdue {
+    background: #dc3545; /* Red */
+}
+
+.alert.upcoming {
+    background: #28a745; /* Green */
 }

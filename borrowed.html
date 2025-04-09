@@ -14,6 +14,10 @@
 
     <div class="container">
         <div id="notification-container"></div>
+
+        <!-- 🔥 New: Due Date Alerts Section -->
+        <div id="dueDateAlerts" class="alert-container"></div>
+
         <div id="borrowedBooks" class="borrowed-list"></div>
     </div>
 
@@ -21,8 +25,9 @@
     
     <script src="script.js"></script>
     <script>
-        // Display borrowed books on this page
+        // Display borrowed books and due date alerts
         displayBorrowedBooksPage();
+        showDueDateAlerts();  // 🔥 Added function call
     </script>
 </body>
 </html>
